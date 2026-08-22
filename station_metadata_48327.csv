@@ -1,0 +1,2 @@
+station_id,station_name_expected,station_name_source,latitude,longitude,elevation_m,study_start,study_end,hours_utc_checked,timezone_local,source_name,source_endpoint,prepared_by_notebook
+48327,Chiang Mai,"CHIANG MAI, THAILAND",18.78,98.98,,2024-03-01,2024-04-30,"00,06,12",Asia/Bangkok (UTC+7),University of Wyoming Atmospheric Science Radiosonde Archive,https://weather.uwyo.edu/wsgi/sounding,00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb
