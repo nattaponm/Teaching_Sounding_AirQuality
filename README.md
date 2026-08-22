@@ -1,87 +1,115 @@
 # Teaching Sounding for Air Quality
+## Chiang Mai, Thailand — March–April 2024
 
-ชุดการเรียนการสอนการใช้ข้อมูล **Radiosonde Sounding** เพื่อวิเคราะห์โครงสร้างบรรยากาศ เสถียรภาพบรรยากาศ และตัวแปรอุตุนิยมวิทยาที่เกี่ยวข้องกับคุณภาพอากาศ โดยใช้ Python บน Google Colab
+ชุดการเรียนการสอนการใช้ข้อมูล **Radiosonde Sounding** เพื่อวิเคราะห์โครงสร้างบรรยากาศ เสถียรภาพบรรยากาศ การผกผันอุณหภูมิ การผสมในชั้นบรรยากาศ และตัวแปรอุตุนิยมวิทยาที่เกี่ยวข้องกับ **air-quality meteorology** โดยใช้ Python บน **Google Colab**
 
-Repository นี้ออกแบบสำหรับนิสิตระดับปริญญาตรีชั้นปีที่ 3–4 ในสาขาสิ่งแวดล้อม ภูมิศาสตร์ ภูมิสารสนเทศ วิทยาศาสตร์บรรยากาศ หรือสาขาที่เกี่ยวข้อง และสามารถใช้เป็นพื้นฐานสำหรับการเรียนระดับบัณฑิตศึกษาได้
+Repository นี้ออกแบบสำหรับนิสิตระดับปริญญาตรีชั้นปีที่ 3–4 ในสาขา **วิทยาศาสตร์สิ่งแวดล้อม ภูมิศาสตร์ ภูมิสารสนเทศ วิทยาศาสตร์บรรยากาศ และสาขาที่เกี่ยวข้อง** และสามารถใช้เป็นพื้นฐานสำหรับการเรียนระดับบัณฑิตศึกษาได้
+
+> **แนวคิดหลักของชุดการสอน**
+>
+> `Data → Quality Control → Vertical Structure → Thermodynamics → Stability / Inversion / Mixing → Temporal Statistics → Air-Quality Interpretation`
 
 ---
 
-## วัตถุประสงค์ของชุดการสอน
+# Start Here
 
-ชุด Notebook นี้มีเป้าหมายให้นิสิตสามารถ
+สำหรับนิสิต ให้เริ่มจาก **Notebook 01** แล้วรันตามลำดับจนถึง Notebook 05
 
-1. เข้าใจโครงสร้างและตัวแปรของข้อมูล radiosonde sounding
-2. ดาวน์โหลดและจัดเตรียมข้อมูลสำหรับการวิเคราะห์อย่างเป็นระบบ
-3. ตรวจสอบคุณภาพข้อมูล (Quality Control: QC)
-4. วิเคราะห์ vertical atmospheric profile
-5. สร้างและอ่านแผนภาพ Skew-T Log-P
-6. คำนวณตัวแปรอุณหพลศาสตร์ของบรรยากาศ
-7. วิเคราะห์ atmospheric stability และ temperature inversion
-8. วิเคราะห์ลมชั้นล่างและการระบายตัวของบรรยากาศ
-9. ประมาณ morning mixing-height diagnostic ด้วย Bulk Richardson Number
-10. คำนวณ ventilation coefficient
-11. วิเคราะห์ความแปรผันตามเวลาและเปรียบเทียบ March–April 2024
-12. ใช้ descriptive statistics และ inferential statistics อย่างเหมาะสม
-13. เข้าใจข้อจำกัดของ statistical significance, correlation และ temporal autocorrelation
-14. เตรียมพื้นฐานสำหรับนำข้อมูล PM2.5 มาวิเคราะห์ร่วมกับ sounding ในขั้นต่อไป
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/01_get_ChiangMai_sounding_from_GitHub.ipynb)
 
-แนวคิดของชุดการสอนคือ
+**Notebook 00** เป็น Instructor/Data-preparation notebook สำหรับผู้สอนหรือผู้ที่ต้องการเรียนรู้ขั้นตอนการสร้าง teaching dataset จาก University of Wyoming
 
 ```text
-Data
-  ↓
-Quality Control
-  ↓
-Vertical Atmospheric Structure
-  ↓
-Thermodynamics
-  ↓
-Stability / Inversion / Mixing
-  ↓
-Temporal Statistics
-  ↓
-Air-Quality Interpretation
+00  Data acquisition & preparation
+             ↓
+01  Get teaching dataset from GitHub
+             ↓
+02  Understand sounding structure & QC
+             ↓
+03  Skew-T & atmospheric thermodynamics
+             ↓
+04  Stability, inversion & air-pollution meteorology
+             ↓
+05  Temporal & statistical analysis
 ```
 
 ---
 
-# ข้อมูลที่ใช้ในการเรียน
+# Open the Notebooks in Google Colab
 
-## สถานีตรวจอากาศชั้นบน
+| Notebook | File | Main topic | Recommended use | Colab |
+|---|---|---|---|---|
+| **00** | `00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb` | Data acquisition & preparation | Instructor / optional | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb) |
+| **01** | `01_get_ChiangMai_sounding_from_GitHub.ipynb` | Get teaching dataset from GitHub | Start here for students | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/01_get_ChiangMai_sounding_from_GitHub.ipynb) |
+| **02** | `02_understanding_sounding_data_and_QC.ipynb` | Understand sounding structure & QC | Core | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/02_understanding_sounding_data_and_QC.ipynb) |
+| **03** | `03_SkewT_and_atmospheric_thermodynamics.ipynb` | Skew-T & atmospheric thermodynamics | Core | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/03_SkewT_and_atmospheric_thermodynamics.ipynb) |
+| **04** | `04_stability_inversion_and_air_pollution.ipynb` | Stability, inversion & air-pollution meteorology | Core | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/04_stability_inversion_and_air_pollution.ipynb) |
+| **05** | `05_temporal_statistics_MarApr2024.ipynb` | Temporal & statistical analysis | Core | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/05_temporal_statistics_MarApr2024.ipynb) |
 
-- **Station:** Chiang Mai
-- **WMO Station ID:** 48327
-- **ช่วงข้อมูล:** 1 March – 30 April 2024
-- **เวลาที่ใช้:** 00 UTC
-- **เวลาไทย:** 07:00 ICT
-- **จำนวน sounding:** 61 soundings
-- March 2024 = 31 soundings
-- April 2024 = 30 soundings
-- Data availability ของ 00 UTC ในช่วงที่ศึกษา = 100%
-
-ข้อมูลต้นทางมาจาก University of Wyoming Atmospheric Science Radiosonde Archive และถูกจัดเตรียมเป็น teaching dataset เพื่อให้นิสิตทุกคนใช้ข้อมูลชุดเดียวกัน
+> หากเปิด Colab จากปุ่มด้านบน Notebook จะถูกเปิดโดยตรงจาก branch `main` ของ repository นี้
 
 ---
 
-## หมายเหตุสำคัญเกี่ยวกับเวลา
+# Course Objectives
 
-ประเทศไทยใช้เวลา
+เมื่อเรียนครบชุด Notebook นี้ นิสิตควรสามารถ:
 
-\[
-ICT = UTC + 7
-\]
+1. อธิบายโครงสร้างและตัวแปรของ radiosonde sounding ได้
+2. ดาวน์โหลดและจัดเตรียมข้อมูลสำหรับการวิเคราะห์อย่างเป็นระบบ
+3. ตรวจสอบคุณภาพข้อมูล (**Quality Control: QC**) ได้
+4. วิเคราะห์ vertical atmospheric profile ได้
+5. สร้างและอ่าน **Skew-T Log-P** ได้
+6. คำนวณและตีความตัวแปรอุณหพลศาสตร์พื้นฐานของบรรยากาศได้
+7. วิเคราะห์ atmospheric stability และ temperature inversion ได้
+8. วิเคราะห์ลมชั้นล่างและศักยภาพการระบายตัวของบรรยากาศได้
+9. ประมาณ **morning mixing-height diagnostic** ด้วย Bulk Richardson Number ได้
+10. คำนวณ ventilation coefficient ได้
+11. วิเคราะห์ความแปรผันตามเวลาและเปรียบเทียบ March–April 2024 ได้
+12. ใช้ descriptive และ inferential statistics อย่างเหมาะสม
+13. อธิบายข้อจำกัดของ statistical significance, correlation และ temporal autocorrelation ได้
+14. เตรียมข้อมูล sounding สำหรับการนำไปวิเคราะห์ร่วมกับ PM₂.₅ ในขั้นต่อไปได้
 
-ดังนั้น
+---
 
-\[
+# Teaching Dataset
+
+## Station and Period
+
+| Item | Information |
+|---|---|
+| Station | **Chiang Mai** |
+| WMO station ID | **48327** |
+| Study period | **1 March–30 April 2024** |
+| Launch time used | **00 UTC** |
+| Local time | **07:00 ICT** |
+| March 2024 | **31 soundings** |
+| April 2024 | **30 soundings** |
+| Total | **61 soundings** |
+| 00 UTC availability | **100%** |
+| Data source | University of Wyoming Atmospheric Science Radiosonde Archive |
+
+ข้อมูลถูกจัดเตรียมเป็น **common teaching dataset** เพื่อให้นิสิตทุกคนใช้ข้อมูลชุดเดียวกันและสามารถเปรียบเทียบผลการวิเคราะห์ได้
+
+---
+
+# Important Time Interpretation
+
+ประเทศไทยใช้เวลา UTC+7 ดังนั้น
+
+$$
 00\ UTC = 07{:}00\ ICT
-\]
+$$
 
-ข้อมูลใน repository นี้จึงสะท้อน **โครงสร้างบรรยากาศช่วงเช้า (morning atmospheric environment)**
+ข้อมูลใน repository นี้จึงสะท้อน **morning atmospheric environment**
 
-การคำนวณ CAPE, CIN, inversion, mixing height หรือ atmospheric stability จากข้อมูลชุดนี้จึงไม่ควรถูกตีความว่าเป็นค่าตัวแทนสูงสุดของทั้งวัน
+ไม่ควรตีความว่าเป็น:
 
-ตัวอย่างเช่น ค่าที่คำนวณจาก Bulk Richardson Number ควรเรียกว่า
+- daily maximum CAPE
+- daily maximum boundary-layer height
+- atmospheric state ของทั้งวัน
+- pollutant concentration
+
+โดยเฉพาะค่าที่ประมาณจาก Bulk Richardson Number ควรเรียกว่า
 
 > **morning mixing-height diagnostic**
 
@@ -89,25 +117,18 @@ ICT = UTC + 7
 
 ---
 
-# โครงสร้างข้อมูล Sounding
+# Sounding Data Structure
 
-ข้อมูล sounding เป็นข้อมูลแนวดิ่งของบรรยากาศ
-
-หนึ่ง sounding ประกอบด้วยหลายระดับความสูง ดังนั้น
+Radiosonde เป็นข้อมูลบรรยากาศในแนวดิ่ง
 
 ```text
 1 sounding ≠ 1 row
-```
-
-แต่เป็น
-
-```text
 1 sounding = many vertical atmospheric levels
 ```
 
-ตัวแปรหลักใน teaching dataset ได้แก่
+ตัวแปรหลักใน teaching dataset ได้แก่:
 
-| Variable | ความหมาย | หน่วย |
+| Variable | Meaning | Unit |
 |---|---|---|
 | `pressure_hPa` | Atmospheric pressure | hPa |
 | `height_m` | Geopotential height | m |
@@ -115,7 +136,7 @@ ICT = UTC + 7
 | `dewpoint_C` | Dew-point temperature | °C |
 | `relative_humidity_pct` | Relative humidity | % |
 | `mixing_ratio_gkg` | Water-vapor mixing ratio | g kg⁻¹ |
-| `wind_direction_deg` | Wind direction | degree |
+| `wind_direction_deg` | Meteorological wind direction | degree |
 | `wind_speed_ms` | Wind speed | m s⁻¹ |
 | `theta_K` | Potential temperature | K |
 | `theta_e_K` | Equivalent potential temperature | K |
@@ -123,34 +144,32 @@ ICT = UTC + 7
 
 ---
 
-# ไฟล์ข้อมูลใน Repository
-
-ไฟล์ข้อมูลหลักประกอบด้วย
+# Repository Data Files
 
 ### `chiangmai_48327_sounding_20240301_20240430.csv.gz`
 
-Combined radiosonde dataset สำหรับช่วง March–April 2024
+Combined radiosonde dataset สำหรับ March–April 2024
 
-ไฟล์ถูกบีบอัดด้วย gzip และสามารถอ่านได้โดยตรงด้วย
+อ่านได้โดยตรงด้วย:
 
 ```python
-pd.read_csv(
-    "filename.csv.gz",
+import pandas as pd
+
+df = pd.read_csv(
+    "chiangmai_48327_sounding_20240301_20240430.csv.gz",
     compression="gzip"
 )
 ```
 
 ### `launch_manifest_48327_20240301_20240430.csv`
 
-บันทึกสถานะการดาวน์โหลด sounding ในแต่ละวันและแต่ละเวลา
+ใช้ตรวจ:
 
-ใช้สำหรับตรวจสอบ
-
-- วันที่ร้องขอข้อมูล
+- requested launch
 - UTC hour
 - download status
 - data availability
-- จำนวน vertical levels
+- number of vertical levels
 - structural QC เบื้องต้น
 
 ### `station_metadata_48327.csv`
@@ -159,103 +178,106 @@ Metadata ของสถานีและชุดข้อมูล
 
 ### `download_report_48327_20240301_20240430.txt`
 
-รายงานสรุปผลการดาวน์โหลดข้อมูล
+รายงานสรุปการดาวน์โหลดและ data availability
 
 ### `README_DATASET.md`
 
-คำอธิบายเฉพาะของ teaching dataset
+รายละเอียดเฉพาะของ teaching dataset
 
 ---
 
-# ลำดับการใช้ Notebook
+# Notebook 00 — Data Preparation from University of Wyoming
 
-แนะนำให้รัน Notebook ตามลำดับต่อไปนี้
+**File:** `00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb`
 
----
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb)
 
-## Notebook 00 — Data Preparation from University of Wyoming
+**สำหรับผู้สอน / ผู้ที่ต้องการเรียนรู้การสร้าง dataset**
 
-### `00_download_ChiangMai_48327_Sounding_MarApr2024.ipynb`
-
-**สำหรับผู้สอน / ผู้ที่ต้องการเรียนรู้ขั้นตอนการสร้าง dataset**
-
-Notebook นี้ใช้สำหรับ
+Notebook นี้ใช้สำหรับ:
 
 - ติดต่อ University of Wyoming radiosonde archive
 - ดาวน์โหลด sounding
-- ตรวจสอบ 00, 06 และ 12 UTC
-- แยก raw data และ processed data
-- ตรวจสอบ download availability
-- สร้าง manifest
+- ตรวจ availability ของเวลา synoptic ที่ร้องขอ
+- เก็บ raw data และ processed data
+- fixed-width parsing
+- structural QC
+- สร้าง launch manifest
 - รวม sounding เป็น combined dataset
-- สร้าง metadata
-- สร้าง ZIP archive
+- สร้าง station metadata
+- สร้าง download report
 - เตรียมไฟล์สำหรับ GitHub
 
-สำหรับการเรียนในชั้นเรียนทั่วไป นิสิตไม่จำเป็นต้องรัน Notebook 00 เพราะ teaching dataset ได้ถูกเตรียมไว้ใน repository แล้ว
+สำหรับการเรียนในชั้นเรียนทั่วไป นิสิต **ไม่จำเป็นต้องรัน Notebook 00**
 
 ---
 
-## Notebook 01 — Download Teaching Dataset from GitHub
+# Notebook 01 — Get Teaching Dataset from GitHub
 
-### `01_get_ChiangMai_sounding_from_GitHub.ipynb`
+**File:** `01_get_ChiangMai_sounding_from_GitHub.ipynb`
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/01_get_ChiangMai_sounding_from_GitHub.ipynb)
 
 **Notebook เริ่มต้นสำหรับนิสิต**
 
-ทำหน้าที่
+หน้าที่:
 
 - mount Google Drive
-- ดาวน์โหลด dataset จาก GitHub
-- ตรวจ metadata
+- ดาวน์โหลด teaching files จาก GitHub
+- ตรวจ station / time / date range
 - ตรวจ data availability
-- เลือกเฉพาะ 00 UTC
-- ตรวจว่าได้ 61 soundings
-- ตรวจ March = 31 วัน
-- ตรวจ April = 30 วัน
+- เลือก 00 UTC = 07:00 ICT
+- ตรวจ March = 31 และ April = 30 soundings
 - ทำ structural QC เบื้องต้น
 - สร้าง analysis-ready teaching dataset
+- บันทึก metadata และ QC outputs
 
-ไฟล์ที่สร้าง:
+ไฟล์หลักที่สร้าง:
 
 ```text
 /content/drive/MyDrive/Teaching_Sounding_AirQuality/
 01_data/chiangmai_48327_00UTC_20240301_20240430.csv.gz
 ```
 
-Notebook 02–05 จะใช้ไฟล์นี้เป็น input หลัก
+Notebook 02–05 จะอ่านไฟล์นี้โดยตรง จึงไม่ต้องดาวน์โหลดข้อมูลจาก GitHub ใหม่ทุกบท
 
 ---
 
-## Notebook 02 — Understanding Sounding Data and Quality Control
+# Notebook 02 — Understanding Sounding Data and Quality Control
 
-### `02_understanding_sounding_data_and_QC.ipynb`
+**File:** `02_understanding_sounding_data_and_QC.ipynb`
 
-หัวข้อสำคัญ
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/02_understanding_sounding_data_and_QC.ipynb)
 
-- โครงสร้าง radiosonde sounding
-- Pressure และ geopotential height
-- Temperature และ dew point
-- Relative humidity
-- Mixing ratio
-- Wind speed และ wind direction
-- Potential temperature
-- Missing data
-- Structural quality control
-- Vertical atmospheric profiles
-- Lower-tropospheric structure
-- การเปรียบเทียบ sounding หลายวัน
+หัวข้อสำคัญ:
 
-แนวคิดสำคัญ:
+- radiosonde sounding structure
+- pressure และ geopotential height
+- temperature และ dew point
+- relative humidity
+- mixing ratio
+- wind speed / wind direction
+- potential temperature
+- equivalent potential temperature
+- missing data
+- structural quality control
+- vertical profiles
+- lower-tropospheric structure
+- comparison of multiple sounding days
 
-> ก่อนคำนวณดัชนีทางอุตุนิยมวิทยา ผู้วิเคราะห์ควรเข้าใจข้อมูลจริงและตรวจ QC ก่อนเสมอ
+หลักการสำคัญ:
+
+> **ก่อนคำนวณ diagnostic ทางอุตุนิยมวิทยา ต้องเข้าใจข้อมูลจริงและตรวจ QC ก่อนเสมอ**
 
 ---
 
-## Notebook 03 — Skew-T and Atmospheric Thermodynamics
+# Notebook 03 — Skew-T and Atmospheric Thermodynamics
 
-### `03_SkewT_and_atmospheric_thermodynamics.ipynb`
+**File:** `03_SkewT_and_atmospheric_thermodynamics.ipynb`
 
-ใช้ MetPy เพื่อศึกษา
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/03_SkewT_and_atmospheric_thermodynamics.ipynb)
+
+ใช้ **MetPy** เพื่อศึกษา:
 
 - Skew-T Log-P
 - environmental temperature
@@ -271,7 +293,7 @@ Notebook 02–05 จะใช้ไฟล์นี้เป็น input หล�
 - Mixed-Layer CAPE / CIN
 - Most-Unstable CAPE / CIN
 - Precipitable Water (PWAT)
-- Wind barbs
+- wind barbs
 
 Notebook ยังสร้าง daily thermodynamic diagnostics สำหรับ sounding ทั้ง 61 วัน
 
@@ -281,58 +303,62 @@ Notebook ยังสร้าง daily thermodynamic diagnostics สำหร�
 03_daily_thermodynamic_diagnostics_48327_00UTC_MarApr2024.csv
 ```
 
+### Important interpretation
+
+ค่าจาก 07:00 ICT เป็น **morning thermodynamic environment**
+
+CAPE/CIN ไม่ควรถูกตีความเป็น daily maximum instability โดยอัตโนมัติ
+
 ---
 
-## Notebook 04 — Stability, Inversion and Air-Pollution Meteorology
+# Notebook 04 — Stability, Inversion and Air-Pollution Meteorology
 
-### `04_stability_inversion_and_air_pollution.ipynb`
+**File:** `04_stability_inversion_and_air_pollution.ipynb`
 
-Notebook นี้เป็นส่วนสำคัญในการเชื่อม atmospheric sounding กับ air-quality meteorology
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/04_stability_inversion_and_air_pollution.ipynb)
 
-หัวข้อประกอบด้วย
+บทนี้เชื่อม atmospheric sounding กับ **air-quality meteorology**
+
+หัวข้อ:
 
 - Mean Sea Level (MSL) และ Above Ground Level (AGL)
-- Environmental lapse rate
-- Potential-temperature gradient
-- Static stability
-- Temperature inversion
-- Inversion base
-- Inversion top
-- Inversion depth
-- Temperature increase across inversion
-- Inversion strength
-- Brunt–Väisälä frequency
-- Wind components \(u,v\)
-- Mean wind 0–500 m
-- Mean wind 0–1 km
+- environmental lapse rate
+- potential-temperature gradient
+- static stability
+- temperature inversion
+- inversion base / top / depth
+- inversion temperature difference
+- inversion strength
+- Brunt–Väisälä frequency \(N^2\)
+- wind components \(u,v\)
+- mean wind 0–500 m
+- mean wind 0–1 km
 - Bulk Richardson Number
-- Morning mixing-height diagnostic
-- Ventilation coefficient
+- morning mixing-height diagnostic
+- ventilation coefficient
 
-### Temperature inversion
+### Temperature Inversion
 
-Temperature inversion คือชั้นที่
+Temperature inversion คือชั้นที่:
 
-\[
-\frac{dT}{dz}>0
-\]
+$$
+\frac{dT}{dz} > 0
+$$
 
-กล่าวคืออุณหภูมิเพิ่มขึ้นเมื่อสูงขึ้น
-
-ใน Notebook ใช้ teaching thresholds เพื่อหลีกเลี่ยงการตรวจ noise เป็น inversion:
+Notebook ใช้ teaching thresholds เช่น:
 
 ```text
 minimum inversion depth = 100 m
-minimum ΔT = 0.5 °C
+minimum ΔT              = 0.5 °C
 ```
 
-ค่าดังกล่าวเป็นตัวเลือกเชิงวิธีการสำหรับการเรียน ไม่ใช่มาตรฐานสากลตายตัว
+ค่าดังกล่าวเป็น methodological choices สำหรับการเรียน ไม่ใช่มาตรฐานสากลตายตัว
 
 ### Bulk Richardson Number
 
-แนวคิดโดยทั่วไป
+แนวคิดโดยทั่วไป:
 
-\[
+$$
 Ri_b =
 \frac{
 (g/\theta_{v0})
@@ -340,28 +366,22 @@ Ri_b =
 }{
 [u(z)-u_0]^2+[v(z)-v_0]^2
 }
-\]
+$$
 
-ใช้ threshold
+ใช้ \(Ri_b \approx 0.25\) เป็น teaching threshold สำหรับประมาณ morning mixing height
 
-\[
-Ri_b \approx 0.25
-\]
+### Ventilation Coefficient
 
-สำหรับ teaching diagnostic ของ mixing height
-
-### Ventilation coefficient
-
-\[
+$$
 VC = MH \times \overline{U}
-\]
+$$
 
-โดย
+โดย:
 
 - \(MH\) = mixing-height diagnostic
 - \(\overline{U}\) = mean wind ภายใน mixing layer
 
-Notebook สร้าง output:
+ตัวอย่าง output:
 
 ```text
 04_daily_airpollution_meteorology_48327_00UTC_MarApr2024.csv
@@ -369,13 +389,13 @@ Notebook สร้าง output:
 
 ---
 
-## Notebook 05 — Temporal and Statistical Analysis
+# Notebook 05 — Temporal and Statistical Analysis
 
-### `05_temporal_statistics_MarApr2024.ipynb`
+**File:** `05_temporal_statistics_MarApr2024.ipynb`
 
-รวมผลจาก Notebook 03 และ 04 เป็น daily analysis table จำนวน 61 วัน
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/05_temporal_statistics_MarApr2024.ipynb)
 
-หัวข้อประกอบด้วย
+Notebook นี้รวมผลจาก Notebook 03 และ 04 เป็น daily analysis table จำนวน 61 วัน
 
 ### Descriptive statistics
 
@@ -383,11 +403,7 @@ Notebook สร้าง output:
 - standard deviation
 - median
 - IQR
-- P10
-- P25
-- P50
-- P75
-- P90
+- P10 / P25 / P50 / P75 / P90
 - skewness
 
 ### Temporal analysis
@@ -396,10 +412,10 @@ Notebook สร้าง output:
 - 3-day rolling mean
 - 7-day rolling mean
 
-### March vs April
+### March vs April 2024
 
 - boxplot
-- empirical cumulative distribution function (ECDF)
+- ECDF
 - descriptive comparison
 
 ### Statistical tests
@@ -419,42 +435,39 @@ Notebook สร้าง output:
 ### Temporal dependence
 
 - lag-1 autocorrelation
-- simple autocorrelation function (ACF)
+- simple autocorrelation function
 - approximate effective sample size
 
-Notebook สร้าง merged daily dataset:
+Merged daily dataset:
 
 ```text
 05_merged_daily_sounding_diagnostics_48327_MarApr2024.csv
 ```
 
-ซึ่งสามารถนำไปใช้ต่อกับ PM2.5 ได้
+ไฟล์นี้เป็นจุดเริ่มต้นที่เหมาะสำหรับนำไปวิเคราะห์ร่วมกับ PM₂.₅ ในขั้นต่อไป
 
 ---
 
-# Workflow สำหรับนิสิต
+# Quick Student Workflow
 
-สำหรับการเรียนปกติ ให้เริ่มที่ Notebook 01
+สำหรับการเรียนปกติ:
 
-```text
-01_get_ChiangMai_sounding_from_GitHub.ipynb
-                    ↓
-02_understanding_sounding_data_and_QC.ipynb
-                    ↓
-03_SkewT_and_atmospheric_thermodynamics.ipynb
-                    ↓
-04_stability_inversion_and_air_pollution.ipynb
-                    ↓
-05_temporal_statistics_MarApr2024.ipynb
-```
+1. เปิดและรัน Notebook 01
+2. ตรวจว่า teaching dataset ถูกบันทึกใน Google Drive
+3. รัน Notebook 02 → 03 → 04 → 05 ตามลำดับ
+4. อ่าน Markdown explanation ก่อนรันแต่ละ code cell
+5. ทำ Exercise ตอนท้ายของแต่ละบท
+6. เก็บ CSV outputs และ figures เพื่อใช้ในบทถัดไป
 
-Notebook แต่ละบทจะบันทึก output ลง Google Drive เพื่อให้ Notebook ถัดไปอ่านได้โดยตรง
+เริ่ม Notebook 01:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/nattaponm/Teaching_Sounding_AirQuality/blob/main/01_get_ChiangMai_sounding_from_GitHub.ipynb)
 
 ---
 
 # Google Drive Folder Structure
 
-หลังจากรัน Notebook 01 โครงสร้างหลักจะเป็น
+หลังจากรัน Notebook 01:
 
 ```text
 MyDrive/
@@ -481,8 +494,9 @@ MyDrive/
 
 Notebook ถูกออกแบบสำหรับ **Google Colab**
 
-Python libraries หลักที่ใช้ ได้แก่
+Core libraries:
 
+- Python
 - pandas
 - NumPy
 - Matplotlib
@@ -490,17 +504,17 @@ Python libraries หลักที่ใช้ ได้แก่
 - MetPy
 - requests
 
-นิสิตไม่จำเป็นต้องติดตั้ง Python บนเครื่องส่วนตัว หากใช้ Google Colab
+นิสิตไม่จำเป็นต้องติดตั้ง Python บนเครื่องส่วนตัวหากใช้ Google Colab
 
 ---
 
-# หลักการ Quality Control
+# Quality-Control Philosophy
 
-ชุดการสอนเน้นแนวคิดว่า
+ชุดการสอนใช้หลัก:
 
-> **QC flag ก่อน แล้วจึงตัดสินใจว่าจะแก้หรือลบข้อมูลหรือไม่**
+> **QC flag first; remove or modify data only with scientific justification.**
 
-ตัวอย่างการตรวจสอบ:
+ตัวอย่าง QC:
 
 - missing values
 - duplicated pressure levels
@@ -509,33 +523,33 @@ Python libraries หลักที่ใช้ ได้แก่
 - \(T_d \le T\)
 - RH range
 - vertical profile completeness
-- derived-variable missing values
+- derived-variable missingness
 
-ไม่ควรใช้วิธี `dropna()` กับทุกตัวแปรทั้ง sounding โดยไม่มีเหตุผล เพราะอาจทำให้สูญเสียข้อมูลที่ยังใช้ประโยชน์ได้
+ไม่ควรใช้ `dropna()` กับทุกตัวแปรทั้ง sounding โดยไม่มีเหตุผล เพราะอาจทำให้สูญเสียข้อมูลที่ยังใช้ประโยชน์ได้
 
 ---
 
-# Scientific Interpretation
+# Scientific Interpretation for Air Quality
 
-## Atmospheric stability
+## Atmospheric Stability
 
-Potential temperature เป็นตัวแปรสำคัญสำหรับการวิเคราะห์ stability
+Potential temperature ช่วยอธิบาย static stability
 
-โดยทั่วไป
+โดยทั่วไป:
 
-\[
-\frac{d\theta}{dz}>0
-\]
+$$
+\frac{d\theta}{dz} > 0
+$$
 
 สัมพันธ์กับ stable stratification
 
 ---
 
-## Inversion และ PM2.5
+## Temperature Inversion and PM₂.₅
 
-การพบ temperature inversion ไม่ได้หมายความโดยอัตโนมัติว่า PM2.5 ต้องสูง
+การพบ temperature inversion **ไม่ได้หมายความโดยอัตโนมัติว่า PM₂.₅ ต้องสูง**
 
-ความเข้มข้นของ PM2.5 ยังขึ้นกับ
+PM₂.₅ ยังขึ้นกับ:
 
 - emission sources
 - biomass burning
@@ -547,79 +561,114 @@ Potential temperature เป็นตัวแปรสำคัญสำหร�
 - deposition
 - boundary-layer evolution
 
-ดังนั้น sounding ใช้บอก
+ดังนั้น sounding ใช้บอก:
 
-> **meteorological conditions favorable or unfavorable for dispersion**
+> **meteorological conditions favorable or unfavorable for pollutant dispersion**
 
 ไม่ใช่ใช้แทน pollutant observations
 
 ---
 
+## Mixing Height
+
+Bulk-Richardson-based mixing height ในชุดนี้เป็น:
+
+> **morning mixing-height diagnostic**
+
+เนื่องจาก sounding อยู่ที่ประมาณ 07:00 ICT
+
+ค่าดังกล่าวไม่ควรใช้แทน daily maximum daytime PBL height โดยไม่มีข้อมูลเพิ่มเติม
+
+---
+
+## Ventilation Coefficient
+
+Ventilation coefficient เป็น atmospheric dispersion diagnostic
+
+ไม่ใช่ pollutant concentration
+
+ดังนั้น:
+
+```text
+low ventilation
+        ↓
+meteorologically less favorable for dispersion
+```
+
+ไม่เท่ากับ:
+
+```text
+low ventilation
+        ↓
+PM2.5 must be high
+```
+
+---
+
 # Statistical Interpretation
 
-## Statistical significance ไม่เท่ากับ Physical significance
+## Statistical Significance ≠ Physical Significance
 
-ถ้า
+ถ้า:
 
-\[
-p<0.05
-\]
+$$
+p < 0.05
+$$
 
-ไม่ได้หมายความว่า
+ไม่ได้หมายความโดยอัตโนมัติว่า:
 
 - effect มีขนาดใหญ่
 - มีความสำคัญทางกายภาพเสมอ
-- เกิด causal relationship
+- causal relationship ถูกพิสูจน์แล้ว
 - \(H_0\) มีโอกาสเป็นจริง 5%
 
-ควรพิจารณาร่วมกับ
+ควรพิจารณาร่วมกับ:
 
 - descriptive statistics
-- distribution
+- distributions
 - effect size
+- sample size
 - atmospheric physics
 
 ---
 
-## Correlation ไม่เท่ากับ Causation
+## Correlation ≠ Causation
 
-\[
+$$
 correlation \neq causation
-\]
+$$
 
-ตัวอย่างเช่น ventilation coefficient มี mixing height อยู่ในสมการ ดังนั้น correlation ระหว่างสองตัวแปรนี้บางส่วนเกิดจาก **mathematical coupling**
+ตัวอย่างเช่น ventilation coefficient มี mixing height อยู่ในสมการ ดังนั้น correlation ระหว่างสองตัวแปรนี้อาจเกิดบางส่วนจาก **mathematical coupling**
 
 ---
 
 ## Temporal Autocorrelation
 
-ข้อมูลบรรยากาศรายวันอาจมี persistence
+ข้อมูลบรรยากาศรายวันอาจมี persistence:
 
-\[
+$$
 X_t \not\perp X_{t-1}
-\]
+$$
 
 ดังนั้น 61 daily observations ไม่จำเป็นต้องเท่ากับ 61 independent pieces of information
 
-Notebook 05 จึงแนะนำแนวคิด
+Notebook 05 จึงแนะนำแนวคิด:
 
 - lag-1 autocorrelation
 - ACF
-- effective sample size
+- approximate effective sample size
 
-เพื่อให้นิสิตเห็นข้อจำกัดของ independent-sample statistical tests
+เพื่อให้นิสิตเข้าใจข้อจำกัดของ independent-sample statistical tests
 
 ---
 
-# March vs April 2024
+# March–April 2024 Interpretation
 
-การเปรียบเทียบในชุดการสอนนี้ควรเรียกว่า
+การเปรียบเทียบในชุดนี้ควรเรียกว่า:
 
 > **March–April comparison within 2024**
 
 ไม่ควรเรียกว่า climatological seasonal comparison เพราะใช้ข้อมูลเพียงหนึ่งปี
-
-ข้อมูลประกอบด้วย
 
 ```text
 March 2024 : n = 31
@@ -629,14 +678,25 @@ Total      : n = 61
 
 ---
 
-# แนวทางการทำแบบฝึกหัด
+# Suggested Learning Sequence
 
-แต่ละ Notebook มีส่วน Exercise เพื่อให้นิสิต
+| Level | Notebook | Main learning outcome |
+|---|---|---|
+| **Level 1 — Data** | 01–02 | Dataset, QC, vertical profiles |
+| **Level 2 — Atmospheric Physics** | 03 | Skew-T, parcel theory, thermodynamics |
+| **Level 3 — Air-Quality Meteorology** | 04 | Stability, inversion, mixing, ventilation |
+| **Level 4 — Data Analysis** | 05 | Temporal variability and statistics |
+
+---
+
+# Exercises
+
+แต่ละ Notebook มี Exercise เพื่อให้นิสิต:
 
 - เปลี่ยนวันที่
+- เปรียบเทียบ sounding profiles
 - เปลี่ยน parameter
-- เปรียบเทียบ profiles
-- ทดสอบ inversion threshold
+- ทดสอบ inversion thresholds
 - ทดสอบ Bulk Richardson threshold
 - เปรียบเทียบ CAPE definitions
 - เปรียบเทียบ March–April
@@ -644,90 +704,45 @@ Total      : n = 61
 - วิเคราะห์ temporal autocorrelation
 - อธิบายข้อจำกัดของผลลัพธ์
 
-เป้าหมายไม่ใช่เพียงให้ code ทำงาน แต่ให้นิสิตสามารถตอบได้ว่า
+เป้าหมายคือให้นิสิตตอบได้ว่า:
 
-> **ทำไมจึงใช้วิธีนี้ และผลลัพธ์มีความหมายทางกายภาพอย่างไร**
-
----
-
-# Suggested Learning Sequence
-
-### Level 1 — Data
-
-```text
-Notebook 01–02
-```
-
-เข้าใจข้อมูล, QC และ atmospheric profiles
-
-### Level 2 — Atmospheric Physics
-
-```text
-Notebook 03
-```
-
-เข้าใจ Skew-T, parcel theory และ thermodynamics
-
-### Level 3 — Air-Pollution Meteorology
-
-```text
-Notebook 04
-```
-
-เข้าใจ stability, inversion, mixing และ ventilation
-
-### Level 4 — Data Analysis
-
-```text
-Notebook 05
-```
-
-วิเคราะห์ temporal variability และ statistics
+> **“ทำไมจึงใช้วิธีนี้ และผลลัพธ์มีความหมายทางกายภาพอย่างไร?”**
 
 ---
 
-# Future Extension: PM2.5 Mini Research Project
+# Future Extension — PM₂.₅ Mini Research Project
 
-ไฟล์
+ไฟล์:
 
 ```text
 05_merged_daily_sounding_diagnostics_48327_MarApr2024.csv
 ```
 
-สามารถนำไปรวมกับข้อมูล PM2.5 จาก Air4Thai เพื่อศึกษา
+สามารถนำไปรวมกับข้อมูล PM₂.₅ เพื่อศึกษา exploratory relationships เช่น:
 
-\[
-PM_{2.5}
-\leftrightarrow
-Mixing\ Height
-\]
+$$
+PM_{2.5} \leftrightarrow Mixing\ Height
+$$
 
-\[
-PM_{2.5}
-\leftrightarrow
-Inversion\ Strength
-\]
+$$
+PM_{2.5} \leftrightarrow Inversion\ Strength
+$$
 
-\[
-PM_{2.5}
-\leftrightarrow
-Ventilation\ Coefficient
-\]
+$$
+PM_{2.5} \leftrightarrow Ventilation\ Coefficient
+$$
 
-\[
-PM_{2.5}
-\leftrightarrow
-PWAT
-\]
+$$
+PM_{2.5} \leftrightarrow PWAT
+$$
 
-\[
-PM_{2.5}
-\leftrightarrow
-Low\ Level\ Wind
-\]
+$$
+PM_{2.5} \leftrightarrow Low\ Level\ Wind
+$$
 
-และสามารถต่อยอดด้วยข้อมูล
+ข้อมูลที่สามารถเพิ่มในขั้นต่อไป:
 
+- Air4Thai PM₂.₅
 - hotspot / biomass burning
 - surface meteorology
 - precipitation
@@ -735,15 +750,13 @@ Low\ Level\ Wind
 - back trajectories
 - emission information
 
-เพื่อพัฒนาเป็น mini research project ด้าน air-quality meteorology
+สิ่งสำคัญคือ sounding เป็นเพียง **meteorological component** ของระบบ air pollution
 
 ---
 
 # Reproducibility
 
-Repository นี้ออกแบบให้ทุกคนใช้ teaching dataset เดียวกัน
-
-workflow หลักคือ
+Repository นี้ออกแบบให้ทุกคนใช้ teaching dataset เดียวกัน:
 
 ```text
 GitHub teaching dataset
@@ -759,35 +772,41 @@ Figures
 Statistical analysis
 ```
 
-วิธีนี้ช่วยให้
+แนวทางนี้ช่วย:
 
-- ตรวจสอบขั้นตอนย้อนหลังได้
-- ผลลัพธ์ทำซ้ำได้
+- ตรวจสอบขั้นตอนย้อนหลัง
+- ทำซ้ำผลลัพธ์ได้
 - ลดความแตกต่างจากการดาวน์โหลดข้อมูลคนละช่วงเวลา
 - แยก data acquisition ออกจาก scientific analysis
+- รักษา output ของแต่ละขั้นให้ตรวจสอบได้
 
 ---
 
-# ข้อควรระวัง
+# Scientific Caveats
 
-1. ข้อมูล sounding เป็น snapshot ของเวลาหนึ่ง ไม่ใช่สภาวะของทั้งวัน
+1. Sounding เป็น snapshot ของเวลาหนึ่ง ไม่ใช่สภาวะของทั้งวัน
 2. 00 UTC ที่เชียงใหม่คือประมาณ 07:00 ICT
-3. CAPE เวลาเช้าไม่ใช่ daily maximum CAPE
+3. CAPE ตอนเช้าไม่ใช่ daily maximum CAPE
 4. Ri-based mixing height เป็น diagnostic estimate
 5. inversion detection ขึ้นกับ algorithm และ thresholds
-6. ventilation coefficient ไม่ใช่ตัววัด PM2.5
+6. ventilation coefficient ไม่ใช่ตัววัด PM₂.₅
 7. correlation ไม่แสดง causation
 8. p-value ไม่แสดงขนาดของผล
-9. temporal autocorrelation ควรถูกพิจารณาในการวิเคราะห์ daily data
-10. การตีความควรอาศัย atmospheric physics ควบคู่กับ statistics
+9. temporal autocorrelation ควรถูกพิจารณาใน daily data
+10. March–April 2024 ไม่ใช่ climatology
+11. atmospheric diagnostics ควรถูกตีความร่วมกับ emission, transport และ pollutant observations
 
 ---
 
 # Data Source
 
-Radiosonde sounding data were obtained from the **University of Wyoming Atmospheric Science Radiosonde Archive** and prepared as a compact teaching dataset for educational analysis.
+Radiosonde observations:
 
-เมื่อใช้ข้อมูลหรือพัฒนางานวิจัยต่อ ควรระบุ data source และวันที่/ช่วงเวลาที่ใช้ให้ชัดเจน
+**University of Wyoming Atmospheric Science Radiosonde Archive**
+
+ข้อมูลถูกดาวน์โหลดและจัดเตรียมเป็น compact teaching dataset สำหรับการเรียนการสอนและการวิเคราะห์ทางวิชาการ
+
+เมื่อใช้ข้อมูลหรือพัฒนางานวิจัยต่อ ควรระบุ data source, station, observation time และ study period ให้ชัดเจน
 
 ---
 
@@ -801,35 +820,36 @@ https://github.com/nattaponm/Teaching_Sounding_AirQuality
 
 # Citation / Acknowledgment
 
-หากนำ Notebook หรือ workflow นี้ไปใช้ในการเรียน การสอน หรือพัฒนางานวิจัยต่อ ควรอ้างถึง repository นี้และแหล่งข้อมูลต้นทางตามความเหมาะสม
+หากนำ Notebook หรือ workflow นี้ไปใช้ในการเรียน การสอน หรือพัฒนางานวิจัยต่อ ควรอ้างถึง repository และแหล่งข้อมูลต้นทางตามความเหมาะสม
 
-ตัวอย่างรูปแบบ acknowledgement:
+ตัวอย่าง acknowledgement:
 
 > Radiosonde data used in this exercise were obtained from the University of Wyoming Atmospheric Science Radiosonde Archive. Data processing and teaching workflows were implemented in Python using open-source scientific libraries.
 
 ---
 
-# สำหรับนิสิต
+# For Students
 
 ไม่จำเป็นต้องจำคำสั่ง Python ทุกคำสั่ง
 
-สิ่งสำคัญกว่าคือสามารถอธิบายได้ว่า
+สิ่งสำคัญกว่าคือสามารถอธิบายได้ว่า:
 
 1. ตัวแปรแต่ละตัวหมายถึงอะไร
 2. ทำไมต้อง QC
 3. atmospheric profile บอกอะไร
 4. stability และ inversion มีผลต่อ vertical mixing อย่างไร
-5. wind มีผลต่อ dispersion อย่างไร
-6. สถิติที่ใช้ตอบคำถามอะไร
-7. ข้อจำกัดของข้อมูลและวิธีวิเคราะห์คืออะไร
+5. wind มีผลต่อ atmospheric dispersion อย่างไร
+6. mixing-height diagnostic มีข้อจำกัดอะไร
+7. สถิติที่ใช้ตอบคำถามอะไร
+8. ข้อจำกัดของข้อมูลและวิธีวิเคราะห์คืออะไร
 
-เป้าหมายสุดท้ายคือการเปลี่ยนจาก
+เป้าหมายสุดท้ายคือการเปลี่ยนจาก:
 
 ```text
 "รันโค้ดได้"
 ```
 
-ไปสู่
+ไปสู่:
 
 ```text
 "เข้าใจข้อมูล → เข้าใจฟิสิกส์ → วิเคราะห์ได้ → ตีความได้"
