@@ -1,6 +1,12 @@
 # Teaching Sounding for Air Quality
 ## Chiang Mai, Thailand — March–April 2024
 
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![Google Colab](https://img.shields.io/badge/Google-Colab-F9AB00.svg?logo=googlecolab&logoColor=white)](https://colab.research.google.com/)
+[![MetPy](https://img.shields.io/badge/Atmospheric-MetPy-4C8BF5.svg)](https://unidata.github.io/MetPy/)
+[![Pandas](https://img.shields.io/badge/Data-Pandas-150458.svg)](https://pandas.pydata.org/)
+[![SciPy](https://img.shields.io/badge/Statistics-SciPy-8CAAE6.svg)](https://scipy.org/)
+
 ชุดการเรียนการสอนการใช้ข้อมูล **Radiosonde Sounding** เพื่อวิเคราะห์โครงสร้างบรรยากาศ เสถียรภาพบรรยากาศ การผกผันอุณหภูมิ การผสมในชั้นบรรยากาศ และตัวแปรอุตุนิยมวิทยาที่เกี่ยวข้องกับ **air-quality meteorology** โดยใช้ Python บน **Google Colab**
 
 Repository นี้ออกแบบสำหรับนิสิตระดับปริญญาตรีชั้นปีที่ 3–4 ในสาขา **วิทยาศาสตร์สิ่งแวดล้อม ภูมิศาสตร์ ภูมิสารสนเทศ วิทยาศาสตร์บรรยากาศ และสาขาที่เกี่ยวข้อง** และสามารถใช้เป็นพื้นฐานสำหรับการเรียนระดับบัณฑิตศึกษาได้
@@ -71,6 +77,251 @@ Repository นี้ออกแบบสำหรับนิสิตระด
 
 ---
 
+
+# Concept Primer Before Coding
+
+ก่อนเริ่ม Notebook 02–05 ควรเข้าใจแนวคิดพื้นฐานต่อไปนี้ เพื่อให้นิสิตสามารถเชื่อมโค้ดกับฟิสิกส์บรรยากาศและ air-quality meteorology ได้อย่างถูกต้อง
+
+## Pressure, Height and Hydrostatic Structure
+
+Sounding เป็นข้อมูลบรรยากาศในแนวดิ่ง โดย pressure ลดลงตามความสูงตาม hydrostatic balance โดยประมาณ:
+
+**Hydrostatic balance:** `dp/dz = −ρg`
+
+ดังนั้น pressure ordering และ geopotential-height ordering เป็น QC ขั้นพื้นฐานที่ต้องตรวจเสมอ
+
+## Temperature, Dew Point and Moisture
+
+- Temperature (`T`) บอก thermal state ของอากาศ
+- Dew point (`T_d`) สะท้อนปริมาณไอน้ำ
+- โดยทั่วไป `T_d ≤ T`
+- เมื่อ `T` และ `T_d` เข้าใกล้กัน อากาศมีความชื้นสัมพัทธ์สูงขึ้น
+
+Relative humidity และ mixing ratio ไม่ใช่ตัวแปรเดียวกัน:
+
+```text
+Relative humidity → closeness to saturation
+Mixing ratio      → actual water-vapor content
+```
+
+## Potential Temperature
+
+Potential temperature คืออุณหภูมิที่ parcel จะมีหากถูกนำแบบ dry adiabatic ไปยัง 1000 hPa:
+
+**Potential temperature:** `θ = T (p₀/p)^(R_d/c_p)`
+
+โดยทั่วไป:
+
+**Stable-stratification indicator:** `dθ/dz > 0`
+
+สัมพันธ์กับ stable stratification
+
+## Equivalent and Virtual Potential Temperature
+
+Equivalent potential temperature (`θₑ`) รวมผลของ temperature, pressure, moisture และ latent heat จึงมีประโยชน์ในการวิเคราะห์ moist thermodynamic structure และ air-mass differences
+
+Virtual potential temperature (`θᵥ`) ปรับผลของ water vapor ต่อ density จึงเหมาะกับ buoyancy และ Bulk Richardson calculations
+
+## LCL, LFC and EL
+
+- **LCL** — ระดับที่ parcel เริ่มอิ่มตัว
+- **LFC** — ระดับที่ parcel เริ่มมี positive buoyancy
+- **EL** — ระดับที่ buoyancy กลับมาใกล้ศูนย์หลัง positive-buoyancy layer
+
+LCL ไม่ใช่ observed cloud base โดยตรง และ EL ไม่ใช่ observed cloud top โดยตรง
+
+## CAPE and CIN
+
+CAPE:
+
+**CAPE:** `CAPE = ∫[LFC→EL] g (Tᵥ,p − Tᵥ,e) / Tᵥ,e dz`
+
+CAPE บอก available positive buoyant energy แต่:
+
+```text
+High CAPE ≠ storm must occur
+Morning CAPE ≠ daily maximum CAPE
+```
+
+CIN บอก negative-buoyancy barrier ต่อ parcel ascent แต่ไม่ควรตีความว่า convection จะเกิดไม่ได้ในช่วงเวลาถัดไป
+
+## Parcel Definitions
+
+Notebook 03 เปรียบเทียบ:
+
+```text
+Surface-Based parcel
+Mixed-Layer parcel
+Most-Unstable parcel
+```
+
+ค่า CAPE/CIN แตกต่างกันเพราะ parcel starting condition ต่างกัน ดังนั้นงานวิจัยควรรายงาน parcel definition เสมอ
+
+## Precipitable Water
+
+PWAT เป็น column-integrated moisture diagnostic ไม่ใช่ rainfall amount โดยตรง
+
+## Environmental Lapse Rate
+
+**Environmental lapse rate:** `Γₑ = −dT/dz`
+
+ใช้ร่วมกับ adiabatic lapse rates เพื่ออธิบาย atmospheric stability
+
+## Temperature Inversion
+
+Temperature inversion คือชั้นที่:
+
+**Temperature inversion criterion:** `dT/dz > 0`
+
+ชั้น inversion มักลด vertical mixing แต่:
+
+> **Temperature inversion ≠ PM₂.₅ must be high**
+
+เพราะ PM₂.₅ ยังขึ้นกับ emissions, biomass burning, transport, chemistry, precipitation และ deposition
+
+## Brunt–Väisälä Frequency
+
+**Brunt–Väisälä frequency:** `N² = (g/θ)(dθ/dz)`
+
+โดยทั่วไป:
+
+```text
+N² > 0 → stable
+N² ≈ 0 → neutral
+N² < 0 → unstable
+```
+
+## Wind Components
+
+Meteorological wind direction สามารถแปลงเป็น:
+
+**Zonal wind component:** `u = −V sin(φ)`
+
+**Meridional wind component:** `v = −V cos(φ)`
+
+ลมชั้นล่างมีบทบาทสำคัญต่อ pollutant transport และ ventilation
+
+## Bulk Richardson Number
+
+Bulk Richardson Number เปรียบเทียบ buoyant suppression กับ mechanical shear:
+
+**Bulk Richardson Number:** `Ri_b = [(g/θᵥ₀)(θᵥ(z) − θᵥ₀) z] / [(u(z) − u₀)² + (v(z) − v₀)²]`
+
+ชุดการสอนใช้ `Ri_b ≈ 0.25` เป็น teaching threshold เพื่อประมาณ **morning mixing-height diagnostic** ไม่ใช่ universal constant
+
+## Ventilation Coefficient
+
+**Ventilation coefficient:** `VC = MH × Ū`
+
+โดย:
+
+- `MH` = mixing-height diagnostic
+- `Ū` = mean wind speed within the mixing layer
+
+VC บอก dispersion potential ไม่ใช่ pollutant concentration
+
+```text
+Low VC → less favorable dispersion
+Low VC ≠ PM₂.₅ must be high
+```
+
+---
+
+# Air-Quality Interpretation Framework
+
+เพื่อไม่ตีความ sounding เกินข้อมูล ให้ใช้กรอบ:
+
+```text
+Emission
+   +
+Boundary-layer structure
+   +
+Wind / regional transport
+   +
+Humidity / chemistry
+   +
+Precipitation / deposition
+   ↓
+Observed pollutant concentration
+```
+
+Sounding ใน repository นี้ให้ข้อมูลเฉพาะ **meteorological structure** และไม่สามารถแทน PM₂.₅ observations หรือ emission information ได้
+
+---
+
+# Statistical Concepts Before Notebook 05
+
+ก่อนใช้ statistical tests ควรดู descriptive statistics และ distribution ก่อนเสมอ
+
+## Statistical significance ≠ physical significance
+
+ค่า `p<0.05` ไม่ได้หมายความว่า effect มีขนาดใหญ่หรือมีความสำคัญทางกายภาพเสมอ
+
+ควรพิจารณาร่วมกับ:
+
+- effect size
+- sample size
+- distribution
+- atmospheric physics
+
+## Correlation ≠ causation
+
+**Correlation does not imply causation:** `correlation ≠ causation`
+
+และต้องระวัง mathematical coupling เช่น ventilation coefficient มี mixing height อยู่ในสมการอยู่แล้ว
+
+## Temporal autocorrelation
+
+ข้อมูลรายวันอาจมี persistence:
+
+**Temporal dependence:** `Xₜ ⫫̸ Xₜ₋₁`
+
+ดังนั้น 61 daily observations ไม่จำเป็นต้องเท่ากับ 61 independent pieces of information
+
+---
+
+# Learning Outcomes by Notebook
+
+| Notebook | Learning outcomes |
+|---|---|
+| **00** | เข้าใจ data acquisition, source provenance, launch availability, parsing, manifest และการสร้าง teaching dataset |
+| **01** | ดึง teaching dataset จาก GitHub, mount Google Drive, ตรวจ station/time/date range และสร้าง analysis-ready dataset |
+| **02** | เข้าใจ vertical data structure, pressure/height/temperature/moisture/wind variables และทำ structural QC |
+| **03** | อ่าน Skew-T, วิเคราะห์ parcel thermodynamics, LCL/LFC/EL, CAPE/CIN, PWAT และ wind profile |
+| **04** | วิเคราะห์ stability, inversion, `N²`, low-level wind, Bulk Richardson Number, mixing-height diagnostic และ ventilation coefficient |
+| **05** | วิเคราะห์ daily variability, March–April comparison, effect size, statistical tests, FDR, correlation และ autocorrelation |
+
+---
+
+# Core Scientific Libraries
+
+| Library | Role in this course | Documentation |
+|---|---|---|
+| **Python** | Programming language | https://www.python.org/ |
+| **Pandas** | tabular data, time series, CSV | https://pandas.pydata.org/ |
+| **NumPy** | numerical arrays | https://numpy.org/ |
+| **Matplotlib** | scientific visualization | https://matplotlib.org/ |
+| **SciPy** | statistics and scientific functions | https://scipy.org/ |
+| **MetPy** | Skew-T, parcel calculations, thermodynamics, units | https://unidata.github.io/MetPy/ |
+| **Requests** | HTTP data acquisition | https://requests.readthedocs.io/ |
+
+---
+
+# Interpretation Rules
+
+| Quantity | What it tells us | What it does **not** prove |
+|---|---|---|
+| CAPE | available positive buoyant energy | a storm must occur |
+| CIN | inhibition to parcel ascent | convection cannot occur later |
+| PWAT | column moisture | rainfall amount |
+| Inversion | stable layer / reduced mixing tendency | PM₂.₅ must be high |
+| Mixing height | estimated morning mixed-layer depth | daily maximum PBL height |
+| Ventilation coefficient | atmospheric dispersion potential | pollutant concentration |
+| Correlation | statistical association | causality |
+| p-value | evidence relative to a null model | physical importance |
+
+---
+
 # Teaching Dataset
 
 ## Station and Period
@@ -96,9 +347,7 @@ Repository นี้ออกแบบสำหรับนิสิตระด
 
 ประเทศไทยใช้เวลา UTC+7 ดังนั้น
 
-$$
-00\ UTC = 07{:}00\ ICT
-$$
+**Time conversion:** `00 UTC = 07:00 ICT`
 
 ข้อมูลใน repository นี้จึงสะท้อน **morning atmospheric environment**
 
@@ -329,8 +578,8 @@ CAPE/CIN ไม่ควรถูกตีความเป็น daily maximum
 - inversion base / top / depth
 - inversion temperature difference
 - inversion strength
-- Brunt–Väisälä frequency \(N^2\)
-- wind components \(u,v\)
+- Brunt–Väisälä frequency N²
+- wind components u, v
 - mean wind 0–500 m
 - mean wind 0–1 km
 - Bulk Richardson Number
@@ -341,9 +590,7 @@ CAPE/CIN ไม่ควรถูกตีความเป็น daily maximum
 
 Temperature inversion คือชั้นที่:
 
-$$
-\frac{dT}{dz} > 0
-$$
+`dT/dz > 0`
 
 Notebook ใช้ teaching thresholds เช่น:
 
@@ -358,28 +605,18 @@ minimum ΔT              = 0.5 °C
 
 แนวคิดโดยทั่วไป:
 
-$$
-Ri_b =
-\frac{
-(g/\theta_{v0})
-[\theta_v(z)-\theta_{v0}]z
-}{
-[u(z)-u_0]^2+[v(z)-v_0]^2
-}
-$$
+**Bulk Richardson Number:** `Ri_b = [(g/θᵥ₀)(θᵥ(z) − θᵥ₀) z] / [(u(z) − u₀)² + (v(z) − v₀)²]`
 
-ใช้ \(Ri_b \approx 0.25\) เป็น teaching threshold สำหรับประมาณ morning mixing height
+ใช้ Ri_b ≈ 0.25 เป็น teaching threshold สำหรับประมาณ morning mixing height
 
 ### Ventilation Coefficient
 
-$$
-VC = MH \times \overline{U}
-$$
+**Ventilation coefficient:** `VC = MH × Ū`
 
 โดย:
 
-- \(MH\) = mixing-height diagnostic
-- \(\overline{U}\) = mean wind ภายใน mixing layer
+- MH = mixing-height diagnostic
+- Ū = mean wind ภายใน mixing layer
 
 ตัวอย่าง output:
 
@@ -520,7 +757,7 @@ Core libraries:
 - duplicated pressure levels
 - pressure ordering
 - height ordering
-- \(T_d \le T\)
+- T_d ≤ T
 - RH range
 - vertical profile completeness
 - derived-variable missingness
@@ -537,9 +774,7 @@ Potential temperature ช่วยอธิบาย static stability
 
 โดยทั่วไป:
 
-$$
-\frac{d\theta}{dz} > 0
-$$
+`dθ/dz > 0`
 
 สัมพันธ์กับ stable stratification
 
@@ -611,16 +846,14 @@ PM2.5 must be high
 
 ถ้า:
 
-$$
-p < 0.05
-$$
+`p < 0.05`
 
 ไม่ได้หมายความโดยอัตโนมัติว่า:
 
 - effect มีขนาดใหญ่
 - มีความสำคัญทางกายภาพเสมอ
 - causal relationship ถูกพิสูจน์แล้ว
-- \(H_0\) มีโอกาสเป็นจริง 5%
+- H₀ มีโอกาสเป็นจริง 5%
 
 ควรพิจารณาร่วมกับ:
 
@@ -634,9 +867,7 @@ $$
 
 ## Correlation ≠ Causation
 
-$$
-correlation \neq causation
-$$
+**Correlation does not imply causation:** `correlation ≠ causation`
 
 ตัวอย่างเช่น ventilation coefficient มี mixing height อยู่ในสมการ ดังนั้น correlation ระหว่างสองตัวแปรนี้อาจเกิดบางส่วนจาก **mathematical coupling**
 
@@ -646,9 +877,7 @@ $$
 
 ข้อมูลบรรยากาศรายวันอาจมี persistence:
 
-$$
-X_t \not\perp X_{t-1}
-$$
+**Temporal dependence:** `Xₜ ⫫̸ Xₜ₋₁`
 
 ดังนั้น 61 daily observations ไม่จำเป็นต้องเท่ากับ 61 independent pieces of information
 
@@ -720,25 +949,15 @@ Total      : n = 61
 
 สามารถนำไปรวมกับข้อมูล PM₂.₅ เพื่อศึกษา exploratory relationships เช่น:
 
-$$
-PM_{2.5} \leftrightarrow Mixing\ Height
-$$
+`PM₂.₅ ↔ Mixing Height`
 
-$$
-PM_{2.5} \leftrightarrow Inversion\ Strength
-$$
+`PM₂.₅ ↔ Inversion Strength`
 
-$$
-PM_{2.5} \leftrightarrow Ventilation\ Coefficient
-$$
+`PM₂.₅ ↔ Ventilation Coefficient`
 
-$$
-PM_{2.5} \leftrightarrow PWAT
-$$
+`PM₂.₅ ↔ PWAT`
 
-$$
-PM_{2.5} \leftrightarrow Low\ Level\ Wind
-$$
+`PM₂.₅ ↔ Low-Level Wind`
 
 ข้อมูลที่สามารถเพิ่มในขั้นต่อไป:
 
